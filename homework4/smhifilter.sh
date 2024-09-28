@@ -151,7 +151,12 @@ FILTER_FILTERFILENAME_ONLYNEGATIVE="onlynegative_$FILTER_FILTEREDFILENAME"
 log "Filtering on only negative temperatures, writing to $FILTER_FILTERFILENAME_ONLYNEGATIVE"
 awk '$3 < 0 {print $0}' $CLEANER_BAREDATAFILENAME > $FILTER_FILTERFILENAME_ONLYNEGATIVE
 
-#Show only the head of the filename
+#Show only the head (10) of the filename
 FILTER_FILTERFILENAME_HEAD="head__$FILTER_FILTEREDFILENAME"
 log "Filtering on only the head of the filename"
 head -10 $CLEANER_BAREDATAFILENAME > $FILTER_FILTERFILENAME_HEAD
+
+#Show only the sorted tail of the filename
+FILTER_FILTERFILENAME_SORTED_TAIL="sortedTail__$FILTER_FILTEREDFILENAME"
+log "Filtering on only the sorted tail of the filename"
+sort $CLEANER_BAREDATAFILENAME | tail -10 > $FILTER_FILTERFILENAME_SORTED_TAIL
