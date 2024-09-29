@@ -1,22 +1,30 @@
 #include <iostream>
 #include <string>
-int main(int fileName, char *atoiLenght[]) {
-  bool bFileName = (fileName ==3);
-  if (bFileName) {
-    std::string var2{atoiLenght[0]};
-    auto var3{*(atoiLenght[1])};
-    auto var4{var2.size()};
-    auto var5{std::atoi(atoiLenght[2])};
+int main(int argCount, char *clArg[]) {
+  bool bArgCount = (argCount ==3);
+  if (bArgCount) {
+    //These commands get the size of the filename
+    std::string fileName{clArg[0]};
+    auto fileNameSize{fileName.size()};
+
+    //These commands get the first argument and convert to str
+    auto firstArg{*(clArg[1])};
+    std::string strFirstArg{clArg[1]};
+
+    //These command get the second argument and convert it to integer (string to integer)
+    auto secondArg{std::atoi(clArg[2])};
+
+    
     auto var6{0};
     auto var7{0};
-    std::string var8{atoiLenght[1]};
+    
     while (true) {
-      var6 += var8[var7++];
-      if (var7 >= static_cast<int>(var8.size())) {
+      var6 += strFirstArg[var7++];
+      if (var7 >= static_cast<int>(strFirstArg.size())) {
         break;
       }
     }
-    if ((var6 ^ var3 * 3) << (var4 & 0x1f) == var5) {
+    if ((var6 ^ firstArg * 3) << (fileNameSize & 0x1f) == secondArg) {
       std::cout << "Correct!" << std::endl;
     } else {
       std::cout << "Wrong!" << std::endl;
