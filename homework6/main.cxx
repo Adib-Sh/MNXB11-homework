@@ -1,7 +1,8 @@
 #include <iostream>
 #include <string>
 int main(int fileName, char *atoiLenght[]) {
-  if (fileName == 3) {
+  bool bFileName = (fileName ==3);
+  if (bFileName) {
     std::string var2{atoiLenght[0]};
     auto var3{*(atoiLenght[1])};
     auto var4{var2.size()};
