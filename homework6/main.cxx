@@ -5,14 +5,14 @@ int main(int argCount, char *clArg[]) {
   if (bArgCount) {
     //These commands get the size of the filename
     std::string fileName{clArg[0]};
-    auto fileNameSize{fileName.size()};
+    size_t fileNameSize{fileName.size()};
 
     //These commands get the first argument and convert to str
-    auto firstArg{*(clArg[1])};
+    char firstArg{*(clArg[1])};
     std::string strFirstArg{clArg[1]};
 
     //These command get the second argument and convert it to integer (string to integer)
-    auto secondArg{std::atoi(clArg[2])};
+    int secondArg{std::atoi(clArg[2])};
 
     
     auto var6{0};
