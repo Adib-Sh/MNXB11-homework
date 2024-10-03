@@ -44,7 +44,7 @@ usage(){
 #   createlog
 createlog(){
   FILTER_DATE=`date +%F`
-  FILTER_LOGFILE=${FILTER_DATE}_${FILTER_SCRIPTNAME}.log
+  FILTER_LOGFILE=output/${FILTER_DATE}_${FILTER_SCRIPTNAME}.log
   touch $FILTER_LOGFILE
   if [[ $? != 0 ]]; then
      echo "cannot write logfile, exiting" 1>&2
@@ -135,12 +135,12 @@ FILTER_FILTEREDFILENAME="filtered_${FILTER_DATAFILE}"
 # Select only measurements done exactly at 13:00:00
 FILTER_FILTERFILENAME_ONLYAT13="onlyat13_$FILTER_FILTEREDFILENAME"
 log "Filtering on only measurements taken at exactly 13:00:00, writing to $FILTER_FILTERFILENAME_ONLYAT13"
-grep '13:00:00' $CLEANER_BAREDATAFILENAME > $FILTER_FILTERFILENAME_ONLYAT13
+grep '13:00:00' $CLEANER_BAREDATAFILENAME > output/$FILTER_FILTERFILENAME_ONLYAT13
 
 # Select only measurements done in April
 FILTER_FILTERFILENAME_ONLYAPRIL="april_$FILTER_FILTEREDFILENAME"
 log "Filtering on only measurements taken in April, writing to $CLEANER_FILTERFILENAME_ONLYAPRIL"
-grep '\-04\-' $CLEANER_BAREDATAFILENAME > $FILTER_FILTERFILENAME_ONLYAPRIL
+grep '\-04\-' $CLEANER_BAREDATAFILENAME > output/$FILTER_FILTERFILENAME_ONLYAPRIL
 
 # Select only measurements with negative temperature
 ## Using the awk programming language. Below, $0 is a whole line, while
@@ -149,14 +149,14 @@ grep '\-04\-' $CLEANER_BAREDATAFILENAME > $FILTER_FILTERFILENAME_ONLYAPRIL
 ## More about awk: <https://www.tutorialspoint.com/awk/awk_basic_examples.htm>
 FILTER_FILTERFILENAME_ONLYNEGATIVE="onlynegative_$FILTER_FILTEREDFILENAME"
 log "Filtering on only negative temperatures, writing to $FILTER_FILTERFILENAME_ONLYNEGATIVE"
-awk '$3 < 0 {print $0}' $CLEANER_BAREDATAFILENAME > $FILTER_FILTERFILENAME_ONLYNEGATIVE
+awk '$3 < 0 {print $0}' $CLEANER_BAREDATAFILENAME > output/$FILTER_FILTERFILENAME_ONLYNEGATIVE
 
 #Show only the head (10) of the filename
 FILTER_FILTERFILENAME_HEAD="head__$FILTER_FILTEREDFILENAME"
 log "Filtering on only the head of the filename"
-head -10 $CLEANER_BAREDATAFILENAME > $FILTER_FILTERFILENAME_HEAD
+head -10 $CLEANER_BAREDATAFILENAME > output/$FILTER_FILTERFILENAME_HEAD
 
 #Show only the sorted tail of the filename
 FILTER_FILTERFILENAME_SORTED_TAIL="sortedTail__$FILTER_FILTEREDFILENAME"
 log "Filtering on only the sorted tail of the filename"
-sort $CLEANER_BAREDATAFILENAME | tail -10 > $FILTER_FILTERFILENAME_SORTED_TAIL
+sort $CLEANER_BAREDATAFILENAME | tail -10 > output/$FILTER_FILTERFILENAME_SORTED_TAIL
