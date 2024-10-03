@@ -52,7 +52,7 @@ usage(){
 #   createlog
 createlog(){
   CLEANER_DATE=`date +%F`
-  CLEANER_LOGFILE=${CLEANER_DATE}_${CLEANER_SCRIPTNAME}.log
+  CLEANER_LOGFILE=output/${CLEANER_DATE}_${CLEANER_SCRIPTNAME}.log
   touch $CLEANER_LOGFILE
   if [[ $? != 0 ]]; then
      echo "cannot write logfile, exiting" 1>&2
@@ -159,4 +159,6 @@ STARTLINE=$(( $STARTLINE + 1 ))
 # - Fix format for the "strange" lines with comments (cut)
 # - Convert format to spaces instead of commas (sed)
 log "Perform cleanup in one line, result in $CLEANER_BAREDATAFILENAME"
-tail -n +$STARTLINE $CLEANER_ORIGINALFILENAME | cut -d';' -f 1,2,3,4,5 | sed 's/;/;/g' > $CLEANER_BAREDATAFILENAME
+tail -n +$STARTLINE $CLEANER_ORIGINALFILENAME | cut -d';' -f 1,2,3,4,5 | sed 's/;/ /g' > $CLEANER_BAREDATAFILENAME
+
+mv $CLEANER_ORIGINALFILENAME output/$CLEANER_ORIGINALFILENAME
