@@ -1,0 +1,7 @@
+[2024-10-03T19:22:45+02:00 Filter]: Calling smhicleaner.sh script
+[2024-10-03T19:22:45+02:00 Filter]: Begin filtering...
+[2024-10-03T19:22:45+02:00 Filter]: Filtering on only measurements taken at exactly 13:00:00, writing to onlyat13_filtered_smhi-opendata_1_52230_20210906_212532.csv
+[2024-10-03T19:22:45+02:00 Filter]: Filtering on only measurements taken in April, writing to
+[2024-10-03T19:22:45+02:00 Filter]: Filtering on only negative temperatures, writing to onlynegative_filtered_smhi-opendata_1_52230_20210906_212532.csv
+[2024-10-03T19:22:45+02:00 Filter]: Filtering on only the head of the filename
+[2024-10-03T19:22:45+02:00 Filter]: Filtering on only the sorted tail of the filename
