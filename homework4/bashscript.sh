@@ -23,7 +23,6 @@ if [ -z "$file_dir" ]; then
 fi
 
 # Checks if the previous step did not trigger the exit
-
 if [ $? -ne 0 ]; then
     echo "Failed to create save directory."
     usage
