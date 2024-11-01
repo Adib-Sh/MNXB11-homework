@@ -11,7 +11,7 @@ void writeMomentum() {
     const Int_t nEvent = 1000;
 
     // Initialize your object e.g. as a pointer
-    momentum *event;
+    momentum *event = nullptr;
 
     // Create your root file here    
     TFile f("tree_file.root", "RECREATE");
@@ -23,7 +23,7 @@ void writeMomentum() {
     tree->Branch("event", &event);
 
     // Now we create our loop for filling the tree with some random data
-    Double_t px, py, pz;
+    Double_t px, py, pz, magnitude;
     Int_t eventID;
 
     // For loop here
@@ -33,8 +33,10 @@ void writeMomentum() {
         px = gRandom->Gaus(0, 0.02);
         py = gRandom->Gaus(0, 0.02);
         pz = gRandom->Gaus(0, 0.02);
+        magnitude = std::sqrt(px * px + py * py + pz * pz);
+
         // Now fill tree
-        event = new momentum(eventID, px, py, pz);
+        event = new momentum(eventID, px, py, pz, magnitude);
         tree->Fill();
         // Remember to delete it again otherise you will have memory leak!
         delete event;
@@ -42,4 +44,5 @@ void writeMomentum() {
     // save the tree/file
     tree->Write();
     tree->AutoSave();
+    f.Close();
 }
