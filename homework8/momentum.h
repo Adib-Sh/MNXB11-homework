@@ -8,22 +8,21 @@ public:
     // Fill up default constructor
     momentum();
     // Constructor
-    momentum(Int_t eventID, double px, double py, double pz);
+    momentum(Int_t eventID, Double_t px, Double_t py, Double_t pz, Double_t magnitude);
     // Destructor
-    virtual ~momentum(); 
+    ~momentum(); 
 
-    Double_t GetPx() const { return fpx; }
-    Double_t GetPy() const { return fpy; }
-    Double_t GetPz() const { return fpz; }
-    Double_t GetEvent() const { return feventID; }
+    Double_t GetPx() const {return px;}
+    Double_t GetPy() const {return py;}
+    Double_t GetPz() const {return pz;}
+    Double_t GetEvent() const {return eventID;}
+    Double_t GetMagnitude() const {return magnitude;}
     
 
 private:
-    Int_t feventID;
-    Double_t fpx;
-    Double_t fpy;
-    Double_t fpz;
-    Double_t GetMagnitude() const; 
+    Int_t eventID;
+    Double_t px ,py ,pz, magnitude;
+
 
     ClassDef(momentum, 1);
 };

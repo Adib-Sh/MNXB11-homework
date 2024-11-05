@@ -4,7 +4,9 @@
 #include <TH2.h>
 #include <TCanvas.h>
 #include "TPad.h"
+#include <TStyle.h>
 #include "momentum.h"
+
 
 void readMomentum() {
     // initialize your object
@@ -32,11 +34,38 @@ void readMomentum() {
     h2->Draw("COLZ"); 
     c1->SaveAs("px_py_momentum.png"); // Save
 
+    //Cleanup
+    delete h2;
+    delete c1;
+    delete event;
+    delete tree;
+    file->Close();
 
-    // plotting px*py:pz 
-    TCanvas *c2 = new TCanvas("c2", "Scatter px*py vs pz", 800, 600);
-    tree->Draw("px*py:pz", "colz");
-    gPad->Modified(); gPad->Update();
-    c2->cd(0);
-    c2->SaveAs("px*py_vs_pz.png"); // Save scatter plot as an image
+}
+
+void readMomentumZ() {
+    // open your file
+    TFile *file = new TFile("tree_file.root", "READ");
+
+    // get your tree
+    TTree *tree = (TTree*)file->Get("tree");
+
+    
+
+    // Scatter plot of px * py vs pz with the condition magnitude <10
+    TCanvas *c1 = new TCanvas("c1", "Scatter px*py vs pz", 800, 600);
+    gStyle->SetMarkerStyle(20);  
+    gStyle->SetMarkerColor(kBlue);
+    gStyle->SetMarkerSize(1.5);
+    tree->Draw("px*py:pz", "magnitude < 10", "SCATTER");
+    c1->SetGrid();
+    c1->Update(); 
+    c1->cd(0);
+    c1->SaveAs("px*py_vs_pz.png"); // Save
+
+    // Cleanup
+    delete c1;
+    delete tree;
+    file->Close();
+    delete file;
 }
