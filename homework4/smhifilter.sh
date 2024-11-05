@@ -24,6 +24,10 @@
 # Memorize script name
 FILTER_SCRIPTNAME=`basename $0`
 
+if [ ! -d "output" ]; then
+    mkdir -p output
+fi
+
 ###### Functions #######################################################
 
 ## usage
@@ -151,12 +155,17 @@ FILTER_FILTERFILENAME_ONLYNEGATIVE="onlynegative_$FILTER_FILTEREDFILENAME"
 log "Filtering on only negative temperatures, writing to $FILTER_FILTERFILENAME_ONLYNEGATIVE"
 awk '$3 < 0 {print $0}' $CLEANER_BAREDATAFILENAME > output/$FILTER_FILTERFILENAME_ONLYNEGATIVE
 
-#Show only the head (10) of the filename
+# Show only the head (10) of the filename
 FILTER_FILTERFILENAME_HEAD="head__$FILTER_FILTEREDFILENAME"
 log "Filtering on only the head of the filename"
 head -10 $CLEANER_BAREDATAFILENAME > output/$FILTER_FILTERFILENAME_HEAD
 
-#Show only the sorted tail of the filename
+# Show only the sorted tail of the filename
 FILTER_FILTERFILENAME_SORTED_TAIL="sortedTail__$FILTER_FILTEREDFILENAME"
 log "Filtering on only the sorted tail of the filename"
 sort $CLEANER_BAREDATAFILENAME | tail -10 > output/$FILTER_FILTERFILENAME_SORTED_TAIL
+
+# Select the measurements with temperature between 5 to 10 degrees
+FILTER_FILTERFILENAME_TEMP_RANGE="temp_range_$FILTER_FILTEREDFILENAME"
+log "Filtering on temperatures between 5 and 10 degrees, writing to $FILTER_FILTERFILENAME_TEMP_RANGE"
+awk -F, '$3 >= 5 && $3 <= 10 {print $0}' "$CLEANER_BAREDATAFILENAME" > "output/$FILTER_FILTERFILENAME_TEMP_RANGE"
