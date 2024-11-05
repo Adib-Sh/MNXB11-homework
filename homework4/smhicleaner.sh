@@ -32,6 +32,11 @@
 # Memorize script name
 CLEANER_SCRIPTNAME=`basename $0`
 
+if [ ! -d "output" ]; then
+    mkdir -p output
+    echo "Output folder did not exist. It is created."
+fi
+
 ###### Functions #######################################################
 
 ## usage
@@ -159,6 +164,6 @@ STARTLINE=$(( $STARTLINE + 1 ))
 # - Fix format for the "strange" lines with comments (cut)
 # - Convert format to spaces instead of commas (sed)
 log "Perform cleanup in one line, result in $CLEANER_BAREDATAFILENAME"
-tail -n +$STARTLINE $CLEANER_ORIGINALFILENAME | cut -d';' -f 1,2,3,4,5 | sed 's/;/ /g' > $CLEANER_BAREDATAFILENAME
+tail -n +$STARTLINE $CLEANER_ORIGINALFILENAME | cut -d';' -f 1,2,3,4,5 | sed 's/;/,/g' > $CLEANER_BAREDATAFILENAME
 
 mv $CLEANER_ORIGINALFILENAME output/$CLEANER_ORIGINALFILENAME
